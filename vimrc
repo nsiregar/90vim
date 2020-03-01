@@ -46,7 +46,37 @@
  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:⍽
 
 "show tabline
+ set tabline=%!NumberingTab()
  set showtabline=2
+
+ function NumberingTab()
+    let s = ''
+    for i in range(tabpagenr('$'))
+        let idx = i + 1
+        if idx == tabpagenr()
+            let s .= '%#TabLineSel#'
+        else
+            let s .= '%#TabLine#'
+        endif
+
+        let s .= ' ' . idx . ' %{LabelingTab(' . idx . ')} '
+    endfor
+    let s .= '%#TabLineFill#%T'
+
+    return s
+ endfunction
+
+ function LabelingTab(n)
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    let name = bufname(buflist[winnr - 1])
+
+    if name == ''
+        return '[New File]'
+    endif
+
+    return name
+ endfunction
 
 "syntax highlight
  syntax on
@@ -107,11 +137,10 @@
 "key mapping
  map <Space> <Leader>
  nnoremap <silent> <Leader><Space> :noh<CR>
- nnoremap <silent> <C-b> :Buffers<CR>
  nnoremap <silent> <C-p> :Files<CR>
 
 "language specific settings
- autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=1 shiftwidth=1 softtabstop=1
+ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
  autocmd BufNewFile,BufRead *.rb setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 "remove trailing whitespace on save
