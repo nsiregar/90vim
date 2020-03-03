@@ -18,16 +18,27 @@
  set smartindent
  set hidden
  set lazyredraw
- set autoread
  set nostartofline
  set splitbelow
  set splitright
  set wildmenu
  set nowrap
 
+ filetype on
+ filetype plugin on
+ filetype indent on
+ set completeopt=longest,menuone
+ set omnifunc=syntaxcomplete#Complete
+
 "swap file
  set swapfile
  set dir=/tmp
+
+ set autoread
+ augroup checktime
+  autocmd!
+  autocmd CursorHold,FocusGained,BufEnter * silent! checktime
+ augroup END
 
 "COLORING
 "line number
@@ -142,6 +153,7 @@
 "language specific settings
  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
  autocmd BufNewFile,BufRead *.rb setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+ autocmd BufNewFile,BufRead *.py setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 "remove trailing whitespace on save
  autocmd BufWritePre * %s/\s\+$//e
