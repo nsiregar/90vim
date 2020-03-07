@@ -125,27 +125,44 @@ endfunction
  nnoremap <silent> <Leader>g :call ToggleVExplorer()<CR>
 
 "customize statusline
+"when encounter error keys not found in dictionary, input visual block in char
+"insert mode
+
+let g:currentmode={
+    \ 'n'  : 'Normal',
+    \ 'no' : 'Normal·Operator Pending',
+    \ 'v'  : 'Visual',
+    \ 'V'  : 'V·Line',
+    \ '' : 'V·Block',
+    \ 's'  : 'Select',
+    \ 'S'  : 'S·Line',
+    \ '' : 'S·Block',
+    \ 'i'  : 'Insert',
+    \ 'R'  : 'Replace',
+    \ 'Rv' : 'V·Replace',
+    \ 'c'  : 'Command',
+    \ 'cv' : 'Vim Ex',
+    \ 'ce' : 'Ex',
+    \ 'r'  : 'Prompt',
+    \ 'rm' : 'More',
+    \ 'r?' : 'Confirm',
+    \ '!'  : 'Shell',
+    \ 't'  : 'Terminal'
+    \}
+
  set noshowmode "do not show mode in command pane
  set laststatus=2 "always show status line
  set statusline=
- set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
- set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
- set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
- set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
+ set statusline+=\ %{toupper(g:currentmode[mode()])}%{'\ '}
  set statusline+=\ %n\           " buffer number
- set statusline+=%#Visual#       " colour
  set statusline+=%{&paste?'\ PASTE\ ':''}
  set statusline+=%{&spell?'\ SPELL\ ':''}
- set statusline+=%#CursorIM#     " colour
  set statusline+=%R                        " readonly flag
- set statusline+=%#Cursor#               " colour
- set statusline+=\ %F\                   " short file name
+ set statusline+=\ %F\                   " full path file name
  set statusline+=%M                        " modified [+] flag
  set statusline+=%=                          " right align
  set statusline+=\ %Y\                   " file type
- set statusline+=%#CursorIM#     " colour
  set statusline+=\ %3l:%-2c\         " line + column
- set statusline+=%#Cursor#       " colour
  set statusline+=\ %3p%%\                " percentage
 
 "key mapping
