@@ -53,6 +53,7 @@
  highlight VertSplit ctermbg=black ctermfg=black
 "tab bar
  highlight Tabline cterm=None
+ highlight TablineSel term=bold ctermbg=4 guibg=DarkBlue
 
 "show whitespaces
  set list
@@ -153,17 +154,19 @@ let g:currentmode={
  set noshowmode "do not show mode in command pane
  set laststatus=2 "always show status line
  set statusline=
+ set statusline+=%#DiffAdd#       " colour
  set statusline+=\ %{toupper(g:currentmode[mode()])}%{'\ '}
- set statusline+=\ %n\           " buffer number
+ set statusline+=%#StatusLine#           " colour
+ set statusline+=\ %n\               " buffer number
  set statusline+=%{&paste?'\ PASTE\ ':''}
  set statusline+=%{&spell?'\ SPELL\ ':''}
- set statusline+=%R                        " readonly flag
- set statusline+=\ %F\                   " full path file name
- set statusline+=%M                        " modified [+] flag
- set statusline+=%=                          " right align
- set statusline+=\ %Y\                   " file type
+ set statusline+=%R                  " readonly flag
+ set statusline+=\ %F\               " full path file name
+ set statusline+=%M                  " modified [+] flag
+ set statusline+=%=                  " right align
+ set statusline+=\ %Y\               " file type
  set statusline+=\ %3l:%-2c\         " line + column
- set statusline+=\ %3p%%\                " percentage
+ set statusline+=\ %3p%%\            " percentage
 
 "key mapping
  map <Space> <Leader>
