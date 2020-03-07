@@ -6,8 +6,8 @@
  set mouse=
  set completeopt-=preview
  set backspace=indent,eol,start
- set tabstop=4
- set shiftwidth=4
+ set tabstop=2
+ set shiftwidth=2
  set expandtab
  set smarttab
  set cmdheight=2
@@ -45,12 +45,14 @@
  highlight LineNr ctermfg=grey
 "cursorline
  highlight clear CursorLine
+ highlight clear CursorLineNr
+ highlight clear CursorLineTabLine
  highlight CursorLineNR ctermbg=DarkGray
  highlight CursorLine ctermbg=DarkGray
 "splitbar
  highlight VertSplit ctermbg=black ctermfg=black
 "tab bar
- highlight TabLineFill ctermfg=Gray ctermbg=black
+ highlight Tabline cterm=None
 
 "show whitespaces
  set list
@@ -91,27 +93,28 @@
 
 "syntax highlight
  syntax on
+ syntax enable
 
 "file explorer with netrw
- function! ToggleVExplorer()
-     if exists("t:expl_buf_num")
-         let expl_win_num = bufwinnr(t:expl_buf_num)
-         let cur_win_num = winnr()
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+    let expl_win_num = bufwinnr(t:expl_buf_num)
+    let cur_win_num = winnr()
 
-         if expl_win_num != -1
-             while expl_win_num != cur_win_num
-                 exec "wincmd w"
-                 let cur_win_num = winnr()
-             endwhile
+    if expl_win_num != -1
+      while expl_win_num != cur_win_num
+        exec "wincmd w"
+        let cur_win_num = winnr()
+      endwhile
 
-             close
-         endif
-         unlet t:expl_buf_num
-     else
-          Vexplore
-          let t:expl_buf_num = bufnr("%")
-     endif
- endfunction
+      close
+    endif
+    unlet t:expl_buf_num
+  else
+    Vexplore
+    let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
 
  let g:netrw_banner = 0
  let g:netrw_liststyle = 3
@@ -161,6 +164,13 @@
  if exists('&fixeol')
    set nofixeol
  endif
+
+ "keymap
+ nmap <C-Up> :m -2<cr>
+ nmap <C-Down> :m +1<cr>
+
+ vmap <C-Up> :m '<-2<cr>gv=gv
+ vmap <C-Down> :m '>+1<cr>gv=gv
 
 "for fzf
  set runtimepath^=~/.fzf
