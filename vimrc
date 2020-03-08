@@ -17,12 +17,15 @@
  set autoindent
  set smartindent
  set hidden
- set lazyredraw
  set nostartofline
  set splitbelow
  set splitright
  set wildmenu
+ set wildmode=list:longest,list:full
+ set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
  set nowrap
+ set showcmd
+ set t_Co=256
 
  filetype on
  filetype plugin on
@@ -195,6 +198,4 @@ let g:currentmode={
 "for fzf
  set runtimepath^=~/.fzf
  set runtimepath^=~/.vim/bundle/fzf.vim
- set wildmode=list:longest,list:full
- set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
  let $FZF_DEFAULT_COMMAND =  "find . -printf '%P\\n'"
