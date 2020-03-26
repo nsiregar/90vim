@@ -194,8 +194,3 @@ let g:currentmode={
 
  vmap <C-Up> :m '<-2<cr>gv=gv
  vmap <C-Down> :m '>+1<cr>gv=gv
-
-"for fzf
- set runtimepath^=~/.fzf
- set runtimepath^=~/.vim/bundle/fzf.vim
- let $FZF_DEFAULT_COMMAND =  "find . -printf '%P\\n'"
